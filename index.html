@@ -2,113 +2,334 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Section</title>
   <style>
-    body {
-      font-family: Arial;
+    * {
       margin: 0;
-      background: #0f172a;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .skills-section {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-    }
-    header {
-      text-align: center;
-      padding: 50px;
-      background: #1e293b;
-    }
-    nav {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      background: #334155;
-      padding: 10px;
+      align-items: center;
     }
-    nav a {
-      margin: 0 15px;
-      color: white;
-      text-decoration: none;
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
     }
-    section {
-      padding: 40px;
+
+    .section-header {
       text-align: center;
+      margin-bottom: 60px;
     }
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      margin: 10px;
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 15px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #fff, rgba(255,255,255,0.8));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+    }
+
+    .skill-category {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 35px;
+      border-radius: 24px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .skill-category:hover::before {
+      left: 100%;
+    }
+
+    .skill-category:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    .skill-category h3 {
+      font-size: 1.6rem;
+      margin-bottom: 30px;
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .skill-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .skill-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill-item span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .skill-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 10px;
-      display: inline-block;
-      width: 250px;
+      overflow: hidden;
+      position: relative;
     }
-    input, textarea {
-      width: 80%;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 5px;
-      border: none;
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+      border-radius: 10px;
+      width: 0;
+      transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
     }
-    button {
+
+    .skill-progress::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-tag {
+      background: rgba(255, 255, 255, 0.15);
       padding: 10px 20px;
-      background: #22c55e;
-      border: none;
-      color: white;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
       cursor: pointer;
+    }
+
+    .skill-tag:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .skill-category {
+        padding: 25px;
+      }
+      
+      .skills-section {
+        padding: 60px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skill-category {
+        padding: 20px;
+      }
+      
+      .skill-tags {
+        justify-content: center;
+      }
     }
   </style>
 </head>
-
 <body>
+  <section class="skills-section" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Skills</h2>
+        <p class="section-subtitle">Technologies I work with daily</p>
+      </div>
+      
+      <div class="skills-grid">
+        <!-- Frontend -->
+        <div class="skill-category">
+          <h3>🌐 Frontend</h3>
+          <div class="skill-bars">
+            <div class="skill-item">
+              <span>HTML5 / CSS3</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="98%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span>JavaScript (ES6+)</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="92%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span>React / Next.js</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="88%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span>Tailwind CSS</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<header>
-  <h1>Lingampalli Sri Harini</h1>
-  <p>Aspiring Web Developer</p>
-</header>
+        <!-- Backend -->
+        <div class="skill-category">
+          <h3>⚙️ Backend</h3>
+          <div class="skill-bars">
+            <div class="skill-item">
+              <span>Node.js / Express</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="85%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span>Python / Django</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="78%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span>MongoDB</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="82%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span>REST APIs</span>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="87%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-</nav>
+        <!-- Tools -->
+        <div class="skill-category">
+          <h3>🛠️ Tools & Others</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Vercel</span>
+            <span class="skill-tag">npm/yarn</span>
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag">AWS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>I am a first-year B.Sc Computer Science student with a strong interest in technology and problem-solving. I am currently building my foundation in programming, web development, and core computer science concepts. I enjoy learning how websites and applications work, and I am actively improving my skills in HTML, CSS, and JavaScript.
-As a beginner in the tech field, I am focused on developing practical knowledge by working on small projects and exploring new tools. I am also interested in areas like Artificial Intelligence and software development, and I aim to build a career in the IT industry.
-I am a quick learner, self-motivated, and always curious to explore new ideas. I believe in continuous learning and improving step by step. This portfolio represents my initial journey in web development, and I am excited to grow my skills further and take on more challenging projects in the future.
-</p>
-</section>
+  <script>
+    // Animate skill bars when in viewport
+    function animateSkills() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
 
-<section id="projects">
-  <h2>Projects</h2>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const progressBars = entry.target.querySelectorAll('.skill-progress');
+            progressBars.forEach(bar => {
+              const width = bar.getAttribute('data-width');
+              bar.style.width = width;
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
 
-  <div class="card">
-    <h3>Project 1</h3>
-    <p>Simple website using HTML & CSS</p>
-  </div>
+      // Observe each skill category
+      document.querySelectorAll('.skill-category').forEach(category => {
+        observer.observe(category);
+      });
+    }
 
-  <div class="card">
-    <h3>Project 2</h3>
-    <p>JavaScript mini app</p>
-  </div>
+    // Initialize animation when page loads
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', animateSkills);
+    } else {
+      animateSkills();
+    }
 
-</section>
-
-<section id="contact">
-  <h2>Contact Me</h2>
-
-  <form onsubmit="sendData(event)">
-    <input type="text" placeholder="Your Name" required><br>
-    <input type="email" placeholder="Your Email" required><br>
-    <textarea placeholder="Message"></textarea><br>
-    <button type="submit">Send</button>
-  </form>
-
-</section>
-
-<script>
-function sendData(event) {
-  event.preventDefault();
-  alert("Message sent! (Backend can be connected here)");
-}
-</script>
-
+    // Smooth scroll for anchor links (if needed)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
