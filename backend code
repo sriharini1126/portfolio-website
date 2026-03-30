@@ -1,0 +1,116 @@
+// server.js - COMPLETE PORTFOLIO BACKEND (No folders needed!)
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Contact Schema
+const contactSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  subject: { type: String, required: true },
+  message: { type: String, required: true },
+  replied: { type: Boolean, default: false }
+}, { timestamps: true });
+const Contact = mongoose.model('Contact', contactSchema);
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio')
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => console.log('❌ MongoDB Error:', err));
+
+// 📊 PORTFOLIO DATA
+const projects = [
+  { id: 1, title: "E-commerce", tech: ["React", "Node", "MongoDB"], live: "#", github: "#" },
+  { id: 2, title: "Task Manager", tech: ["Vue", "Firebase"], live: "#", github: "#" },
+  { id: 3, title: "Portfolio", tech: ["HTML", "CSS", "JS"], live: "#", github: "#" }
+];
+
+const skills = {
+  frontend: ["React", "Vue", "HTML", "CSS", "Tailwind"],
+  backend: ["Node.js", "Express", "MongoDB"],
+  tools: ["Git", "Docker", "AWS"]
+};
+
+// 🛠️ API ROUTES
+
+// Health Check
+app.get('/api/health', (req, res) => res.json({ status: 'OK', message: 'Portfolio Backend Live!' }));
+
+// Get Projects
+app.get('/api/projects', (req, res) => res.json({ projects }));
+
+// Get Skills
+app.get('/api/skills', (req, res) => res.json(skills));
+
+// Contact Form - SAVE TO DB + SEND EMAIL
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+
+    // Save to MongoDB
+    const contact = new Contact({ name, email, subject, message });
+    await contact.save();
+
+    // Send Email
+    const transporter = nodemailer.createTransporter({
+      service: 'gmail',
+      auth: {
+        user: process.env.NODEMAILER_EMAIL,
+        pass: process.env.NODEMAILER_PASS
+      }
+    });
+
+    // Email to YOU
+    await transporter.sendMail({
+      from: process.env.NODEMAILER_EMAIL,
+      to: process.env.NODEMAILER_EMAIL,
+      subject: `📧 New Contact: ${subject}`,
+      html: `
+        <h2>New Message from ${name}</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong><br>${message}</p>
+      `
+    });
+
+    res.json({ 
+      success: true, 
+      message: '✅ Message sent! Check your email.' 
+    });
+  } catch (error) {
+    console.error('Contact Error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// Get All Contacts (Admin)
+app.get('/api/contacts', async (req, res) => {
+  const contacts = await Contact.find().sort({ createdAt: -1 });
+  res.json(contacts);
+});
+
+// 404 Handler
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// 🚀 START SERVER
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`\n🚀 Portfolio Backend running on http://localhost:${PORT}`);
+  console.log(`📡 Test endpoints:`);
+  console.log(`   GET  http://localhost:${PORT}/api/health`);
+  console.log(`   GET  http://localhost:${PORT}/api/projects`);
+  console.log(`   POST http://localhost:${PORT}/api/contact`);
+});
