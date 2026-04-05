@@ -1,140 +1,271 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Portfolio</title>
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #0f172a;
-      color: white;
-    }
-    header {
-      text-align: center;
-      padding: 50px;
-      background: #1e293b;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      background: #334155;
-      padding: 10px;
-    }
-    nav a {
-      margin: 0 15px;
-      color: white;
-      text-decoration: none;
-    }
-    section {
-      padding: 40px;
-      text-align: center;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      margin: 10px;
-      border-radius: 10px;
-      display: inline-block;
-      width: 250px;
-    }
-    input, textarea {
-      width: 80%;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      padding: 10px 20px;
-      background: #22c55e;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sri Harini | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<!-- ✅ ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#fdf2f8;
+color:#6b21a8;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:#fbcfe8;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+nav h2{
+color:#6b21a8;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+}
+
+nav li{
+margin-left:20px;
+}
+
+nav a{
+text-decoration:none;
+color:#6b21a8;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#db2777;
+}
+
+.hero{
+text-align:center;
+padding:80px 20px;
+}
+
+.hero h1{
+font-size:42px;
+color:#db2777;
+margin-bottom:20px;
+}
+
+#typing{
+font-size:24px;
+color:#6b21a8;
+height:30px;
+}
+
+section{
+padding:60px 8%;
+}
+
+h2{
+text-align:center;
+margin-bottom:30px;
+color:#db2777;
+font-size:32px;
+}
+
+.about{
+max-width:800px;
+margin:auto;
+text-align:center;
+line-height:1.8;
+}
+
+.skills{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.skill{
+background:#fbcfe8;
+padding:20px;
+border-radius:10px;
+display:flex;
+align-items:center;
+gap:10px;
+transition:0.3s;
+}
+
+.skill:hover{
+background:#f0a8d8;
+}
+
+.certificates{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.cert{
+background:#fbcfe8;
+padding:20px;
+border-radius:10px;
+display:flex;
+align-items:center;
+gap:10px;
+transition:0.3s;
+}
+
+.cert:hover{
+background:#f0a8d8;
+}
+
+form{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+input,textarea{
+width:100%;
+max-width:500px;
+padding:10px;
+margin-bottom:15px;
+border-radius:5px;
+border:1px solid #db2777;
+font-family:'Poppins',sans-serif;
+}
+
+button{
+padding:10px 20px;
+border:none;
+background:#db2777;
+color:white;
+cursor:pointer;
+border-radius:5px;
+transition:0.3s;
+}
+
+button:hover{
+background:#ad1d5f;
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:#fbcfe8;
+color:#6b21a8;
+}
+
+i{
+color:#db2777;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<header>
-  <h1>Lingampalli Sri Harini</h1>
-  <p>Aspiring Web Developer</p>
-</header>
-
 <nav>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-  <a href="#skills">Skills</a>
-  <a href="#certificates">Certificates</a>
+<h2>Portfolio</h2>
+<ul>
+<li><a href="#home">🏠 Home</a></li>
+<li><a href="#about">👩 About</a></li>
+<li><a href="#skills">💻 Skills</a></li>
+<li><a href="#certificates">📜 Certificates</a></li>
+<li><a href="#contact">📩 Contact</a></li>
+</ul>
 </nav>
 
+<div class="hero" id="home">
+<h1>Sri Harini</h1>
+<div id="typing"></div>
+</div>
+
 <section id="about">
-  <h2>About Me</h2>
-  <p>I am a first-year B.Sc Computer Science student with a strong interest in technology and problem-solving. I am currently building my foundation in programming, web development, and core computer science concepts. I enjoy learning how websites and applications work, and I am actively improving my skills in HTML, CSS, and JavaScript.
-As a beginner in the tech field, I am focused on developing practical knowledge by working on small projects and exploring new tools. I am also interested in areas like Artificial Intelligence and software development, and I aim to build a career in the IT industry.
-I am a quick learner, self-motivated, and always curious to explore new ideas. I believe in continuous learning and improving step by step. This portfolio represents my initial journey in web development, and I am excited to grow my skills further and take on more challenging projects in the future.
+<h2>👩 About Me</h2>
+<p class="about">
+I am Sri Harini(25DTSA31). I am currently in my 2nd semester BSc Data Science student in Kristu Jayanti University.
 </p>
 </section>
 
-<section id="projects">
-  <h2>Projects</h2>
-
-  <div class="card">
-    <h3>Project 1</h3>
-    <p>Simple website using HTML & CSS</p>
-  </div>
-
-  <div class="card">
-    <h3>Project 2</h3>
-    <p>JavaScript mini app</p>
-  </div>
-
+<section id="skills">
+<h2>💻 Skills</h2>
+<div class="skills">
+<div class="skill"><i class="fas fa-code"></i> JavaScript / HTML / CSS</div>
+<div class="skill"><i class="fas fa-server"></i> Node.js / Express</div>
+<div class="skill"><i class="fas fa-database"></i> MySQL</div>
+<div class="skill"><i class="fas fa-chart-line"></i> Data Analysis</div>
+<div class="skill"><i class="fas fa-laptop-code"></i> C Programming</div>
+</div>
 </section>
-  <section id="skills">
-  <h2>Skills</h2>
-  <ul class="skills-list">
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
-    <li>C programming</li>
-    <li>sql</li>
-</ul>
-</section>
-<section id="certifications">
 
-  <h2>Certifications</h2>
-  <ul class="certifications-list">
-    <li>Frontend Development-Infosys springboard</li>
-    <li>Digital Engineering-Nasscom</li>
-    <li>Process Mining-Celonis</li>
-  </ul>
+<section id="certificates">
+<h2>📜 Certificates</h2>
+<div class="certificates">
+<div class="cert"><i class="fas fa-award"></i> Infosys - Web Development</div>
+<div class="cert"><i class="fas fa-certificate"></i> NASSCOM - Digital Engineering</div>
+<div class="cert"><i class="fas fa-medal"></i> Celonis - Process Mining</div>
+</div>
 </section>
 
 <section id="contact">
-  <h2>Contact Me</h2>
-
-  <form onsubmit="sendData(event)">
-    <input type="text" placeholder="Your Name" required><br>
-    <input type="email" placeholder="Your Email" required><br>
-    <textarea placeholder="Message"></textarea><br>
-    <button type="submit">Send</button>
-  </form>
-  <p id="status-msg"></p>
-
+<h2>📩 Contact Me</h2>
+<form action="https://formspree.io/f/mjgppldw" method="POST">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+<button type="submit">Send</button>
+</form>
 </section>
 
+<footer>
+<p>© 2026 Sri Harini</p>
+</footer>
+
 <script>
-function sendData(event) {
-  event.preventDefault();
-  alert("Message sent! (Backend can be connected here)");
+const text = ["BSc Data Science Student", "Tech Enthusiast", "Future Data Scientist"];
+let i=0, j=0, current="", isDeleting=false;
+
+function type(){
+current = text[i];
+
+if(!isDeleting){
+document.getElementById("typing").innerHTML = current.substring(0,j++);
+if(j>current.length){
+isDeleting=true;
+setTimeout(type,1000);
+return;
 }
+}else{
+document.getElementById("typing").innerHTML = current.substring(0,j--);
+if(j<0){
+isDeleting=false;
+i=(i+1)%text.length;
+}
+}
+
+setTimeout(type,100);
+}
+
+type();
 </script>
 
 </body>
